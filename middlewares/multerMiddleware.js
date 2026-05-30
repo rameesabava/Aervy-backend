@@ -1,0 +1,26 @@
+const multer = require('multer')
+
+// define storage for uploaded file
+const storage = multer.diskStorage({
+    destination:(req,file,callback)=>{
+        callback(null,'./uploads')
+    },
+    filename:(req,file,callback)=>{
+        callback(null,`${Date.now()}-${file.originalname}`)
+    }
+})
+
+// allow image and pdf
+const fileFilter = (req,file,callback)=>{
+    if(file.mimetype.startsWith("image/") || file.mimetype == "application/pdf"){
+        callback(null,true)
+    }else{
+        callback(null,false)
+    }
+}
+
+const multerMiddleware = multer({
+    storage, fileFilter
+})
+
+module.exports = multerMiddleware
