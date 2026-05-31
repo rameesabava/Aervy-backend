@@ -39,9 +39,9 @@ exports.bookingPaymentController = async (req, res) => {
         // create stripe session
         const session = await stripe.checkout.sessions.create({
 
-            success_url: "http://localhost:5173/payment-success",
+            success_url: "https://aervy-services-clxl.vercel.app/payment-success",
 
-            cancel_url: "http://localhost:5173/payment-cancel",
+            cancel_url: "https://aervy-services-clxl.vercel.app/payment-cancel",
 
             line_items,
 
