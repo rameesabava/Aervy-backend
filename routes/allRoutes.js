@@ -15,11 +15,17 @@ router.post('/register',userController.registerController)
 // user login
 router.post('/login',userController.loginController)
 
+// user - google login
+router.post('/google-login',userController.googleLoginController)
+
 // provider register
 router.post('/provider-register',multerMiddleware.single('identityCard'), providerController.providerRegisterController)
 
 // provider login
 router.post('/provider-login',providerController.providerLoginController)
+
+// get service description AI
+router.post('/service-ai',providerController.generateDescriptionbyAIController)
 
 // get pending providers
 router.get('/admin/pending-providers',adminMiddleware,providerController.getPendingProvidersController)

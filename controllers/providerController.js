@@ -1,6 +1,7 @@
 const providers = require('../models/providerModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { GoogleGenerativeAI } = require('@google/generative-ai')
 
 // provider register
 exports.providerRegisterController = async (req, res) => {
@@ -100,4 +101,28 @@ exports.editProviderController = async (req,res)=>{
   const updatedUser = await providers.findByIdAndUpdate( id, updateData, { new:true })
 
   res.status(200).json(updatedUser)
+}
+
+// get service description using gemini api
+exports.generateDescriptionbyAIController = async (req,res)=>{
+    console.log("Inside generateDescriptionbyAIController");
+    
+    const genAI  = new GoogleGenerativeAI(process.env.GEMINI_API)
+    const {service} = req.body
+
+   console.log(service);
+   
+    const model = genAI.getGenerativeModel({
+        model:"gemini-2.5-flash"
+    })
+    const result = await model.generateContent(`Give me a short description of services offered for ${service}`)
+    const reply = result.response
+    console.log(reply);
+    
+    res.status(200).json({
+        success:true,
+        user:service,
+        content:reply.candidates[0].content.parts[0].text
+    })
+    
 }

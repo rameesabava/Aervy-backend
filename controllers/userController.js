@@ -45,3 +45,29 @@ exports.loginController = async (req, res) => {
     }
 
 }
+
+// google login
+exports.googleLoginController = async (req, res) => {
+    console.log("Inside googleLoginController");
+    const { email, password, username } = req.body
+    // check email is in db
+    const existingUser = await users.findOne({ email })
+    if (existingUser) {
+        // if present, 
+
+        const token = jwt.sign({ userMail: email, role: existingUser.role }, process.env.JWTSECRET)
+        res.status(200).json({
+            user: existingUser, token
+        })
+    } else {
+        // if not present, register user
+        let encryptPassword = await bcrypt.hash(password, 10)
+        const newUser = await users.create({
+            username, email, password: encryptPassword
+        })
+        const token = jwt.sign({ userMail: newUser.email, role: newUser.role }, process.env.JWTSECRET)
+
+        res.status(200).json({ user: newUser, token })
+    }
+
+}
