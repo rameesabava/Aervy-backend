@@ -7,7 +7,7 @@ const bookings = require("../models/bookingModel")
 // booking payment
 exports.bookingPaymentController = async (req, res) => {
     console.log("Inside bookingPaymentController")
-        const { userId,username, providerId, providerName  } = req.body
+        const { userId,username, userPhone, providerId, providerName  } = req.body
 
         // find provider
         const providerDetails = await providers.findById(providerId)
