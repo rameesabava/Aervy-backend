@@ -45,6 +45,9 @@ router.get('/provider/view/:id',userMiddleware,providerController.getSingleProvi
 // new booking
 router.post('/booking-payment',userMiddleware,bookingController.bookingPaymentController)
 
+// user bookings
+router.get('/user-bookings/:id',userMiddleware,bookingController.getUserBookingsController)
+
 // // get provider to view by provider
 router.get('/provider/:id',providerMiddleware,providerController.getSingleProviderViewController)
 

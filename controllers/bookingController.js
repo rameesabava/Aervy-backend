@@ -70,6 +70,14 @@ exports.getProviderBookingsController = async (req,res)=>{
      res.status(200).json(providerBookings)
 }
 
+// get user bookings
+exports.getUserBookingsController = async (req, res) => {
+    console.log("Inside getUserBookingsController");
+    const { id } = req.params;
+    const userBookings = await bookings.find({ userId: id }).sort({ createdAt: -1 });
+    res.status(200).json(userBookings);
+}
+
 // to complete the booking by provider
 exports.updateBookingStatusCompletedController = async(req,res)=>{
     console.log("Inside updateBookingStatusCompletedController");
@@ -87,3 +95,4 @@ exports.updateBookingStatusRejectedController = async(req,res)=>{
          res.status(200).json(updatedRejectedBooking)
 
 }
+
