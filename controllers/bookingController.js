@@ -66,7 +66,7 @@ exports.bookingPaymentController = async (req, res) => {
 exports.getProviderBookingsController = async (req,res)=>{
     console.log("Inside getProviderBookingsController");
     const {id} = req.params
-    const providerBookings = await bookings.find({providerId:id})
+    const providerBookings = await bookings.find({providerId:id}).sort({ createdAt: -1 })
      res.status(200).json(providerBookings)
 }
 
