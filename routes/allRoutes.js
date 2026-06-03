@@ -57,9 +57,6 @@ router.get('/provider/bookings/:id',providerMiddleware,bookingController.getProv
 // provider status complete bookings
 router.put('/provider/complete-bookings',providerMiddleware,bookingController.updateBookingStatusCompletedController)
 
-// provider status reject bookings
-router.put('/provider/reject-bookings',providerMiddleware,bookingController.updateBookingStatusRejectedController)
-
 // update provider profile
 router.put('/profile/:id',providerMiddleware,providerController.editProviderController)
 

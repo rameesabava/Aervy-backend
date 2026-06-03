@@ -2,8 +2,6 @@ const stripe = require("stripe")(process.env.STRIPE_SK)
 const providers = require("../models/providerModel")
 const bookings = require("../models/bookingModel")
 
-
-
 // booking payment
 exports.bookingPaymentController = async (req, res) => {
     console.log("Inside bookingPaymentController")
@@ -87,12 +85,4 @@ exports.updateBookingStatusCompletedController = async(req,res)=>{
 
 }
 
-// to reject the booking by provider
-exports.updateBookingStatusRejectedController = async(req,res)=>{
-    console.log("Inside updateBookingStatusRejectedController");
-    const {id} = req.body
-    const updatedRejectedBooking = await bookings.findByIdAndUpdate({_id:id},{status:"Rejected"},{new:true})
-         res.status(200).json(updatedRejectedBooking)
-
-}
 
